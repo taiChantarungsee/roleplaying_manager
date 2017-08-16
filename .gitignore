@@ -1,0 +1,13 @@
+*.pyc
+__pycache__
+bin
+lib
+include
+local
+*.un~
+*.py.un~
+*.db
+/mysite/wsgi.py
+/static
+/mysite/wsgi.py
+.DS_Store

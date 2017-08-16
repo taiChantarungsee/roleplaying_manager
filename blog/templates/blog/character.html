@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/ bootstrap-theme.min.css">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">"></script>
+		<style>
+			body {background: #E5E6DD;}
+		</style>
+	</head>
+		<body>
+			<script type="text/javascript">
+				$(document).ready(function(){
+ 					$("#create").click(function(){
+ 						$("#create-form").fadeIn();
+ 					});
+				});
+			</script>
+			<div style="text-align:center;">
+				<h1> Welcome to the character database. </h1>
+				<button type="button" id="create" class="btn btn-info"> Create a new character</button>
+				<button type="button" class="btn btn-info"> Select a character</button>
+			</div>
+			<div id="create-form" style="display:none;">
+				<div class="container">
+  					<h2>New Character</h2>
+  					<form action="" name="character-form" method="post">{% csrf_token %}
+
+    					<label for="firstname">First Name</label>
+    					<input type="text" name="firstname" id="firstname" placeholder="John">
+
+					    <label for="lastname">Last Name</label>
+    					<input type="text" name="lastname" id="lastname" placeholder="Doe">
+
+    					<label for="age">Age</label>
+    					<input type="number" name="age" id="age" placeholder="25">
+
+    					<label for="race">Race</label>
+    					<input type="text" name="race" id="race" placeholder="human">
+
+					    <label for="background">Hometown</label>
+    					<input type="text" name="hometown" id="hometown" placeholder="London, 1984 etc.">
+
+    					<label for="likes">Likes</label>
+    					<input type="text" name="likes" id="likes" placeholder="Ice Cream Sorbet">
+
+    					<label for="relationships">Relationships</label>
+    					<input type="text" name="relationships" id="relationships" placeholder="Father to Jane Doe">
+
+    					<button type="submit" class="save btn btn-info">Submit</button>
+  					</form>
+  				</div>
+			</div>
+			Test{{entries}}
+		</body>
+</html>

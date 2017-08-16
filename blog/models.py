@@ -1,0 +1,70 @@
+from django.db import models
+from django.utils import timezone
+
+from django.utils.encoding import python_2_unicode_compatible
+
+class Post(models.Model):
+    author = models.ForeignKey('auth.User')
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title
+
+class Comment (models.Model):
+    author = models.CharField(max_length=50)
+    title = models.CharField(max_length=50)
+    text = models.TextField(help_text='Say something nice about Tai ;)')
+    published_date = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+    def publish(self):
+	self.published_date = timezone.now()
+	self.save
+
+    def __str__(self):
+	return self.title
+
+class CharacterBase(models.Model):
+    RACE_CHOICES = (
+        ('HUMAN', 'human'),
+        ('ELF', 'elf'),
+        ('DWARF', 'dwarf'),
+        ('ORC', 'orc'),
+    )
+
+    first_name = models.CharField(max_length=50)
+    second_name = models.CharField(max_length=50)
+    age = models.IntegerField()
+    race = models.CharField(max_length=5,choices=RACE_CHOICES,default='human')
+    hometown = models.CharField(max_length=50)
+    likes = models.CharField(max_length=50)
+    relationships = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.first_name
+
+@python_2_unicode_compatible
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+    def __str__(self):
+        return self.question_text
+
+@python_2_unicode_compatible
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.question_text
+

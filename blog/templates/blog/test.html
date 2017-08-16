@@ -1,0 +1,27 @@
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<div id="my_view">
+{{ name }} {{ age }}
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+
+<script>
+
+var myModel = {
+  name: "Ashley",
+  age: 24
+};
+
+var myViewModel = new Vue({
+  el: '#my_view',
+  data: myModel
+});
+
+</script>
+
+</body>
+</html>
