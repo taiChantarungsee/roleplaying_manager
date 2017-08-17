@@ -18,7 +18,7 @@ ALLOWED_HOSTS = ['roleplaying-character-manager.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth',  
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -36,6 +36,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+LOGIN_REDIRECT_URL = 'char_builder'
 
 ROOT_URLCONF = 'mysite.urls'
 
@@ -111,9 +113,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'staticfiles'
-STATICFILES_DIRS =(
-        os.path.join(BASE_DIR, 'static'),
-)
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_x_FORWARDED_PROTO', 'https')

@@ -1,0 +1,27 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">"></script>
+        <link rel="stylesheet" href="{% static 'css/bootstrap-table.css' %}">
+        <script src="{% static 'js/bootstrap-table.js' %}"></script>
+        <style>
+            body {background: #E5E6DD;}
+        </style>
+        <!-- <link rel="stylesheet" href="{% static 'css/blog.css' %}"> -->
+    </head>
+    <body>
+        <div>
+        {% if not user.is_authenticated %}
+        <button class="btn btn-basic"><a href="{% url 'create_user' %}" class="top-menu">add user</a></button>
+        <button class="btn btn-basic"><a href="{% url 'login' %}">Click here to log in</a></button>
+        {% else %}
+        You are logged in. <a href="{% url 'logout' %}">Click here to logout.</a>
+        {% endif %}
+        </div>
+            {% block content %}
+            {% endblock %}
+    </body>
+</html>

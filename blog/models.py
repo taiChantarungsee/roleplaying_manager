@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 
 class Post(models.Model):
@@ -41,7 +41,7 @@ class CharacterBase(models.Model):
     )
 
     first_name = models.CharField(max_length=50)
-    second_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     age = models.IntegerField()
     race = models.CharField(max_length=5,choices=RACE_CHOICES,default='human')
     hometown = models.CharField(max_length=50)

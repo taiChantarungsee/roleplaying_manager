@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView # Look into these...
+from django.views.generic.edit import CreateView
+from django.contrib.auth.forms import UserCreationForm
+from django.core.urlresolvers import reverse
 from django.utils import timezone
 
 from .models import Post, Choice, Question, CharacterBase
@@ -87,7 +90,7 @@ class ResultsView(DetailView):
 
 #Views for role playing character builder
 def char_builder(request):
-    entries = CharacterBase.objects.all()
+    characters = CharacterBase.objects.all()
     if request.method == 'POST':
         print("POST received")
         form = CharacterForm(request.POST)
@@ -95,7 +98,18 @@ def char_builder(request):
             print("Forms is valid")
             new = form.save()
             print("Saved Form")
-            return render(request, 'blog/character.html', {'entries':entries, 'form':form})
+            return render(request, 'blog/character.html', {'characters':characters, 'form':form})
     else:
         form = CharacterForm()
-    return render(request, 'blog/character.html', {'entries':entries, 'form':form})
+    return render(request, 'blog/character.html', {'characters':characters, 'form':form})
+
+def character_detail(request, pk):
+    character = CharacterBase.objects.get(pk=pk)
+    return render(request, 'blog/character_detail.html', {'character':character})
+
+class CreateUser(CreateView):
+    form_class = UserCreationForm
+    template_name = 'blog/create_user.html'
+
+    def get_success_url(self):
+        return reverse('char_builder')

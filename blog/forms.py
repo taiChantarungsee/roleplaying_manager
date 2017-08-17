@@ -22,7 +22,7 @@ class CharacterForm(forms.ModelForm):
 	class Meta:
 
 		model = CharacterBase
-		fields = ('first_name','second_name','age','race','hometown','likes',
+		fields = ('first_name','last_name','age','race','hometown','likes',
 			'relationships')
 
 """ The html for the form should have something like this:

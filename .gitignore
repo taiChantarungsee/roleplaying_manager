@@ -4,6 +4,7 @@ bin
 lib
 include
 local
+mysite/settings.py
 *.un~
 *.py.un~
 *.db

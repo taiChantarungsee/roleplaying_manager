@@ -1,0 +1,30 @@
+{% extends "blog/character_base.html" %}
+
+{% block content %}
+
+<div>
+	<h2>Current Characters</h2>
+	<table data-toggle="table">
+   		<thead>
+    		<tr>
+       			<th>First Name</th>
+       			<th>Last Name</th>
+       			<th>Age</th>
+       			<th>Race</th>
+    		</tr>
+   		</thead>
+   		<tbody>
+    		<tr>
+        		<td>{{character.first_name}}</a></td>
+      			<td>{{character.last_name}}</td>
+      			<td>{{character.age}}</td>
+      			<td>{{character.race}}</td>
+      			<td>{{character.likes}}</td>
+      			<td>{{character.hometown}}</td>
+      			<td>{{character.relationships}}</td>
+   			</tr>
+   		</tbody>
+	</table>
+</div>
+
+{% endblock %}
