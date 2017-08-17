@@ -1,49 +1,54 @@
 {% extends "blog/character_base.html" %}
 
 {% block content %}		
-			<script type="text/javascript">
-				$(document).ready(function(){
- 					$("#create").click(function(){
- 						$("#create-form").fadeIn();
- 					});
-				});
-			</script>
-			<div style="text-align:center;">
-				<h1> Welcome to the character database. </h1>
-				<button type="button" id="create" class="btn btn-info"> Create a new character</button>
-			</div>
-			<div id="create-form" style="display:none;">
-				<div class="container">
-  					<h2>New Character</h2>
-  					<form action="" name="character-form" method="post">{% csrf_token %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+ 			$("#create").click(function(){
+ 				$("#create-form").fadeIn();
+ 			});
+		});
+	</script>
+	<div style="text-align:center;">
+		<h1> Welcome to the character database. </h1>
+		<button type="button" id="create" class="btn btn-info"> Create a new character</button>
+	</div>
+	<div id="create-form" style="display:none;">
+		<div class="container">
+  			<h2>New Character</h2>
+  			<form action="" name="character-form" method="post">{% csrf_token %}
 
-    					{{form.as_p}}
+    			{{form.as_p}}
 
-    					<button type="submit" class="save btn btn-info">Submit</button>
-  					</form>
-  				</div>
-			</div>
-			<div>
-				<h2>Current Characters</h2>
-				<table data-toggle="table">
-    				<thead>
-        				<tr>
-           			    	<th>First Name</th>
-           			    	<th>Last Name</th>
-           			    	<th>Age</th>
-           			    	<th>Race</th>
-        				</tr>
-    				</thead>
+    			<button type="submit" class="save btn btn-info">Submit</button>
+  			</form>
+  		</div>
+	</div>
+	<div>
+		<div class="container">
+			<div class="row">
+				<div class="col col-sm-8">
+					<h2>Current Characters</h2>
+					<table data-toggle="table">
+    					<thead>
+       						<tr>
+          					    <th>First Name</th>
+          					    <th>Last Name</th>
+          					    <th>Age</th>
+          					    <th>Race</th>
+       						</tr>
+    					</thead>
     				<tbody>
     				{% for character in characters %}
-        				<tr>
-            				<td><a href="{% url 'character_detail' pk=character.pk %}">{{character.first_name}}</a></td>
+       					<tr>
+          					<td><a href="{% url 'character_detail' pk=character.pk %}">{{character.first_name}}</a></td>
             				<td>{{character.last_name}}</td>
             				<td>{{character.age}}</td>
             				<td>{{character.race}}</td>
         				</tr>
-        			{% endfor %}
+        				{% endfor %}
     				</tbody>
-				</table>
+					</table>
+				</div>
 			</div>
+		</div>
 {% endblock %}
