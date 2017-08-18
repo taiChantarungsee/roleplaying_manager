@@ -6,7 +6,52 @@
  			$("#create").click(function(){
  				$("#create-form").fadeIn();
  			});
+ 			$(function () {
+    			$('[data-toggle="tooltip"]').tooltip();
+			});
 		});
+
+		function runningFormatter(value,row,index) {
+			return index + 1;
+		}
+
+		function queryParams() {
+			return {
+				type: 'owner',
+        		sort: 'updated',
+        		direction: 'desc',
+        		per_page: 100,
+        		page: 1
+			};
+		}
+		function actionFormatter(value, row, index) {
+	    return [
+	        '<a class="like" href="javascript:void(0)" title="Like">',
+	        '<i class="glyphicon glyphicon-heart"></i>',
+	        '</a>',
+	        '<a class="edit ml10" href="javascript:void(0)" title="Edit">',
+	        '<i class="glyphicon glyphicon-edit"></i>',
+	        '</a>',
+	        '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
+	        '<i class="glyphicon glyphicon-remove"></i>',
+	        '</a>'
+	    ].join('');
+	}
+
+	window.actionEvents = {
+	    'click .like': function (e, value, row, index) {
+	        alert('You click like icon, row: ' + JSON.stringify(row));
+	        console.log(value, row, index);
+	    },
+	    'click .edit': function (e, value, row, index) {
+	        alert('You click edit icon, row: ' + JSON.stringify(row));
+	        console.log(value, row, index);
+	    },
+	    'click .remove': function (e, value, row, index) {
+	        alert('You click remove icon, row: ' + JSON.stringify(row));
+	        console.log(value, row, index);
+	    }
+	};
 	</script>
 	<div style="text-align:center;">
 		<h1> Welcome to the character database. </h1>
@@ -29,22 +74,42 @@
 			<div class="row">
 				<div class="col-sm-8">
 					<h2>Current Characters</h2>
-					<table data-toggle="table">
+					<div id="toolbar" class="btn-group">
+					   <button type="button" class="btn btn-default">
+					       <i class="glyphicon glyphicon-heart"></i>
+					   </button>
+					   <button type="button" class="btn btn-default">
+					       <i class="glyphicon glyphicon-trash"></i>
+					   </button>
+					</div>
+					<table data-toggle="table" data-classes="table table-hover table -condensed" data-striped="true" data-card-view="true" data-click-to-select="true"  data-search="true"
+       				data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-toolbar="#toolbar" data-query-params="queryParams"
+       				data-pagination="true" data-height="300" data-show-toggle="true" data-mobile-responsive="true">
     					<thead>
        						<tr>
-          					    <th>First Name</th>
-          					    <th>Last Name</th>
-          					    <th>Age</th>
-          					    <th>Race</th>
+       							<th data-field="state" data-checkbox="true"></th>
+       							<th class="col-sm-1" 
+       							data-formatter="runningFormatter"
+       							data-switchable="false">Number</th>
+          					    <th class="col-sm-4" data-sortable="true"
+          					    data-switchable="false">First Name</th>
+          					    <th class="col-sm-4" data-sortable="true">Last Name</th>
+          					    <th class="col-sm-1" data-sortable="true">Age</th>
+          					    <th class="col-sm-1" data-sortable="true">Race</th>
+          					    <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
        						</tr>
     					</thead>
     				<tbody>
     				{% for character in characters %}
        					<tr>
-          					<td><a href="{% url 'character_detail' pk=character.pk %}">{{character.first_name}}</a></td>
+       						<td></td>
+       						<td></td>
+          					<td><a href="{% url 'character_detail' pk=character.pk %}"
+          					data-toggle="tooltip" title="Click to view character details">{{character.first_name}}</a></td>
             				<td>{{character.last_name}}</td>
             				<td>{{character.age}}</td>
             				<td>{{character.race}}</td>
+            				<td></td>
         				</tr>
         				{% endfor %}
     				</tbody>
