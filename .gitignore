@@ -1,7 +1,6 @@
 *.pyc
 __pycache__
 .sqlite3
-.selfile
 bin
 lib
 include
