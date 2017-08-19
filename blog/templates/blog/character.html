@@ -6,6 +6,13 @@
  			$("#create").click(function(){
  				$("#create-form").fadeIn();
  			});
+ 			$("#remove_form").click(function() {
+ 				$("#create-form").fadeOut();
+ 			});
+ 			$("mass_like").click(function() {
+ 			});
+ 			$("mass_delete").click(function() {
+ 			});
  			$(function () {
     			$('[data-toggle="tooltip"]').tooltip();
 			});
@@ -26,12 +33,6 @@
 		}
 		function actionFormatter(value, row, index) {
 	    return [
-	        '<a class="like" href="javascript:void(0)" title="Like">',
-	        '<i class="glyphicon glyphicon-heart"></i>',
-	        '</a>',
-	        '<a class="edit ml10" href="javascript:void(0)" title="Edit">',
-	        '<i class="glyphicon glyphicon-edit"></i>',
-	        '</a>',
 	        '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
 	        '<i class="glyphicon glyphicon-remove"></i>',
 	        '</a>'
@@ -39,16 +40,8 @@
 	}
 
 	window.actionEvents = {
-	    'click .like': function (e, value, row, index) {
-	        alert('You click like icon, row: ' + JSON.stringify(row));
-	        console.log(value, row, index);
-	    },
-	    'click .edit': function (e, value, row, index) {
-	        alert('You click edit icon, row: ' + JSON.stringify(row));
-	        console.log(value, row, index);
-	    },
 	    'click .remove': function (e, value, row, index) {
-	        alert('You click remove icon, row: ' + JSON.stringify(row));
+	        alert('You have deleted this character, row: ' + JSON.stringify(row));
 	        console.log(value, row, index);
 	    }
 	};
@@ -60,7 +53,8 @@
 	</div>
 	<div id="create-form" style="display:none;">
 		<div class="container">
-  			<h2>New Character</h2>
+  			<h2>New Character <button type="button" id="remove_form" class="btn btn-default">
+			<i class="glyphicon glyphicon-remove"></i></h2>
   			<form action="" name="character-form" method="post">{% csrf_token %}
 
     			{{form.as_p}}
@@ -75,16 +69,16 @@
 				<div class="col-sm-8">
 					<h2>Current Characters</h2>
 					<div id="toolbar" class="btn-group">
-					   <button type="button" class="btn btn-default">
+					   <button type="button" id="mass_like" class="btn btn-default">
 					       <i class="glyphicon glyphicon-heart"></i>
 					   </button>
-					   <button type="button" class="btn btn-default">
+					   <button type="button" id="mass_delete" class="btn btn-default">
 					       <i class="glyphicon glyphicon-trash"></i>
 					   </button>
 					</div>
-					<table data-toggle="table" data-classes="table table-hover table -condensed" data-striped="true" data-card-view="true" data-click-to-select="true"  data-search="true"
-       				data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-toolbar="#toolbar" data-query-params="queryParams"
-       				data-pagination="true" data-height="300" data-show-toggle="true" data-mobile-responsive="true">
+					<table data-toggle="table" data-classes="table table-hover table -condensed" data-striped="true" data-card-view="true" data-click-to-select="true" data-search="true"
+       				data-show-refresh="true" data-show-toggle="true" data-toolbar="#toolbar" data-query-params="queryParams"
+       				data-pagination="true" data-height="300" data-mobile-responsive="true">
     					<thead>
        						<tr>
        							<th data-field="state" data-checkbox="true"></th>
@@ -102,10 +96,11 @@
     				<tbody>
     				{% for character in characters %}
        					<tr>
+       						<a href= "{% url 'character_delete' pk=character.pk %}">link</a>
        						<td></td>
        						<td></td>
           					<td><a href="{% url 'character_detail' pk=character.pk %}"
-          					data-toggle="tooltip" title="Click to view character details">{{character.first_name}}</a></td>
+          					data-toggle="tooltip" title="Click to view character details and edit">{{character.first_name}}</a></td>
             				<td>{{character.last_name}}</td>
             				<td>{{character.age}}</td>
             				<td>{{character.race}}</td>

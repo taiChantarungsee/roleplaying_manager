@@ -8,10 +8,11 @@ urlpatterns = [ # using the template {{ url 'url_name'}} we can refer to the URL
 
     #URLs for character builder
     #url(r'^dnd/$', char_builder, name='char_builder'),
-    url(r'^character/$', char_builder, name='char_builder'),
+    url(r'^character/$', char_builder_list, name='char_builder'),
     url(r'^new_user/$', CreateUser.as_view(), name='create_user'),
     url(r'^login/$', auth_views.login, {'template_name':'blog/login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'template_name': 'blog/logout.html'}, name='logout'),
+    url(r'^delete/(?P<pk>\d+)/$', DeleteCharacter.as_view(), name='character_delete'),
     url(r'^character/detail/(?P<pk>\d+)/$', character_detail, name='character_detail'),    
 
 ]

@@ -1,9 +1,10 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView # Look into these...
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils import timezone
 
 from .models import Post, Choice, Question, CharacterBase
@@ -89,13 +90,19 @@ class ResultsView(DetailView):
     template_name = 'polls/results.html'
 
 #Views for role playing character builder
-def char_builder(request):
-    characters = CharacterBase.objects.all()
+def char_builder_list(request):
+    if request.user.id:
+        user = request.user.id
+        characters = CharacterBase.objects.filter(user=user)
+    else:
+        characters = CharacterBase.objects.all()
     if request.method == 'POST':
         print("POST received")
         form = CharacterForm(request.POST)
         if form.is_valid():
-            print("Forms is valid")
+            new = form.save(commit=False)
+            new.user = request.user
+            print("Form is valid")
             new = form.save()
             print("Saved Form")
             return render(request, 'blog/character.html', {'characters':characters, 'form':form})
@@ -107,6 +114,19 @@ def character_detail(request, pk):
     character = CharacterBase.objects.get(pk=pk)
     return render(request, 'blog/character_detail.html', {'character':character})
 
+
+#Character related class based views
+class DeleteCharacter(DeleteView):
+    model = CharacterBase
+    print("Class sucessful")
+    template_name = 'blog/character_delete.html'
+    success_url = reverse_lazy('char_builder')
+
+    def get_sucess_url(self):
+        return reverse('char_builder')
+
+
+#User related views
 class CreateUser(CreateView):
     form_class = UserCreationForm
     template_name = 'blog/create_user.html'

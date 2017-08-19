@@ -40,6 +40,7 @@ class CharacterBase(models.Model):
         ('ORC', 'orc'),
     )
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     age = models.IntegerField()

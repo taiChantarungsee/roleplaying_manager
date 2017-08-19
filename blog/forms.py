@@ -22,6 +22,7 @@ class CharacterForm(forms.ModelForm):
 	class Meta:
 
 		model = CharacterBase
+		exclude = ['user']
 		fields = ('first_name','last_name','age','race','hometown','likes',
 			'relationships')
 
