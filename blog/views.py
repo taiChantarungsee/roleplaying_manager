@@ -114,6 +114,8 @@ def character_detail(request, pk):
     character = CharacterBase.objects.get(pk=pk)
     return render(request, 'blog/character_detail.html', {'character':character})
 
+def game_master(request):
+    return render(request,'blog/gm.html')
 
 #Character related class based views
 class DeleteCharacter(DeleteView):

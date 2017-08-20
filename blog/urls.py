@@ -15,4 +15,6 @@ urlpatterns = [ # using the template {{ url 'url_name'}} we can refer to the URL
     url(r'^delete/(?P<pk>\d+)/$', DeleteCharacter.as_view(), name='character_delete'),
     url(r'^character/detail/(?P<pk>\d+)/$', character_detail, name='character_detail'),    
 
+    #URLs for GM mode
+    url(r'^GM/$', game_master, name='gm'),
 ]

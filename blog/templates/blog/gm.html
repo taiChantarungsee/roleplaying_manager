@@ -1,0 +1,38 @@
+{% extends "blog/character_base.html" %}
+{% block content %}	
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#campaign").click(function(){
+			$("#campaign-list").fadeIn();
+			$("#campaign").fadeOut();
+		});
+		$("")
+	})
+</script>
+
+<div style="text-align:center;">
+	<h1>This is the Game Master's page.</h1>
+	<br><div class="container"><p> This page is a demo of the game master's page. The real page is only available to admins. It serves to help manager characters and campaign. Upcoming features to be listed here shortly.</p></div>
+	<button class="btn btn-info" id="campaign">Choose your campaign</button>
+	<div class="container">
+			<div class="row">
+				<div class="col-sm-8">
+	<table id="campaign-list" class="table table-borderless" data-toggle="table" data-classes="table" data-height="200" style="display:none;">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Other things to put here</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Example</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}

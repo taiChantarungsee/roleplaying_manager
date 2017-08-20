@@ -9,8 +9,6 @@
  			$("#remove_form").click(function() {
  				$("#create-form").fadeOut();
  			});
- 			$("mass_like").click(function() {
- 			});
  			$("mass_delete").click(function() {
  			});
  			$(function () {
@@ -43,6 +41,7 @@
 		<h1> Welcome to the character database. </h1>
 		<br><div class="container"><p> This website is intended as a demo and test site of a system agnostic role playing game character manager being developed by Tai Jantarungsee. Currently, you can create a user and create characters. Characters are not associated with users yet.</p></div>
 		<button type="button" id="create" class="btn btn-info"> Create a new character</button>
+		<a href="{% url 'gm' %}"><button type="button" id="dm" class="btn btn-warning"> Click here to try out GM mode</button></a>
 	</div>
 	<div id="create-form" style="display:none;">
 		<div class="container">
@@ -62,9 +61,6 @@
 				<div class="col-sm-8">
 					<h2>Current Characters</h2>
 					<div id="toolbar" class="btn-group">
-					   <button type="button" id="mass_like" class="btn btn-default">
-					       <i class="glyphicon glyphicon-heart"></i>
-					   </button>
 					   <button type="button" id="mass_delete" class="btn btn-default">
 					       <i class="glyphicon glyphicon-trash"></i>
 					   </button>
