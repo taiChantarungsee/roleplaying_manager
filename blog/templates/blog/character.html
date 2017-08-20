@@ -31,13 +31,6 @@
         		page: 1
 			};
 		}
-		function actionFormatter(value, row, index) {
-	    return [
-	        '<a class="remove ml10" href="javascript:void(0)" title="Remove">',
-	        '<i class="glyphicon glyphicon-remove"></i>',
-	        '</a>'
-	    ].join('');
-	}
 
 	window.actionEvents = {
 	    'click .remove': function (e, value, row, index) {
@@ -87,16 +80,15 @@
        							data-switchable="false">Number</th>
           					    <th class="col-sm-4" data-sortable="true"
           					    data-switchable="false">First Name</th>
-          					    <th class="col-sm-4" data-sortable="true">Last Name</th>
+          					    <th class="col-sm-3" data-sortable="true">Last Name</th>
           					    <th class="col-sm-1" data-sortable="true">Age</th>
           					    <th class="col-sm-1" data-sortable="true">Race</th>
-          					    <th data-field="action" data-formatter="actionFormatter" data-events="actionEvents">Action</th>
+          					    <th>Action</th>
        						</tr>
     					</thead>
     				<tbody>
     				{% for character in characters %}
        					<tr>
-       						<a href= "{% url 'character_delete' pk=character.pk %}">link</a>
        						<td></td>
        						<td></td>
           					<td><a href="{% url 'character_detail' pk=character.pk %}"
@@ -104,7 +96,8 @@
             				<td>{{character.last_name}}</td>
             				<td>{{character.age}}</td>
             				<td>{{character.race}}</td>
-            				<td></td>
+            				<td><a href= "{% url 'character_delete' pk=character.pk %}">
+	        				<i class="glyphicon glyphicon-remove"></i></a></td>
         				</tr>
         				{% endfor %}
     				</tbody>

@@ -118,12 +118,11 @@ def character_detail(request, pk):
 #Character related class based views
 class DeleteCharacter(DeleteView):
     model = CharacterBase
-    print("Class sucessful")
     template_name = 'blog/character_delete.html'
     success_url = reverse_lazy('char_builder')
 
     def get_sucess_url(self):
-        return reverse('char_builder')
+        return success_url
 
 
 #User related views

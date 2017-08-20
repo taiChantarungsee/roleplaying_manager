@@ -1,6 +1,21 @@
 {% extends "blog/character_base.html" %}
 {% block content %}
 
-Sucessful.
+<h1>Delete Character</h1>
+
+<p>Are you sure you want to delete this character? {{ characterbase }}?</p>
+
+<!-- Note that its the name of the object by default. It worked in the other app
+because the model name and the context variable name was the same! Also when trouble
+shooting isolate the problem and then carefully test it. Generate hypotheses and then
+test those as well. Why didn't this work? Because the name was wrong. What possible 
+names could there be then?
+ -->
+
+<form action="{% url 'character_delete' pk=characterbase.pk %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete." />
+  <a href="{% url "char_builder" %}">No, cancel.</a>
+</form>
 
 {% endblock %}
