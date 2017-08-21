@@ -19,6 +19,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
 class Comment (models.Model):
     author = models.CharField(max_length=50)
     title = models.CharField(max_length=50)
@@ -32,6 +33,7 @@ class Comment (models.Model):
     def __str__(self):
 	return self.title
 
+
 class Player(models.Model):
 
     first_name = models.CharField(max_length=20)
@@ -40,6 +42,7 @@ class Player(models.Model):
 
     def __str__(self):
         return self.first_name
+
 
 class Campaign(models.Model):
     SYSTEM_CHOICES = (
@@ -56,6 +59,21 @@ class Campaign(models.Model):
 
     def __str__(self):
         return self.name
+
+
+#class Races(models.Model):
+#     RACE_CHOICES = (
+#        ('HUMAN', 'human'),
+#        ('ELF', 'elf'),
+#        ('DWARF', 'dwarf'),
+#        ('ORC', 'orc'),
+#    )
+#
+#    name = models.CharField(max_length=5, choices=RACE_CHOICES,default)
+#
+#    def __str__(self):
+#        return self.name
+
 
 class CharacterBase(models.Model):
     RACE_CHOICES = (
