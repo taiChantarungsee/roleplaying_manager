@@ -1,0 +1,27 @@
+{% extends "blog/character_base.html" %}
+{% block content %}
+<script>
+$(document).ready(function(){
+	$("#firstbox").hide(0).delay(0).fadeIn(1000);
+});
+
+</script>
+<div style="text-align:center;">
+	{{campaign}}
+	{{players.all}}
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8">
+				<dl class="dl-horizontal" id="firstbox" style=" border: 1px solid green;">
+					<dt>Campaign Info</dt>
+					<dd>{{campaign.system}}</dd>
+					<dt>Example</dt>
+					<dd>ds</dd>
+					<dt>Another example</dt>
+					<dd>dsd</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

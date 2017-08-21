@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils import timezone
 
-from .models import Post, Choice, Question, CharacterBase
+from .models import Post, Choice, Question, CharacterBase, Campaign
 from .forms import PostForm, CharacterForm
 
 def post_list(request):
@@ -115,7 +115,14 @@ def character_detail(request, pk):
     return render(request, 'blog/character_detail.html', {'character':character})
 
 def game_master(request):
-    return render(request,'blog/gm.html')
+    campaigns = Campaign.objects.all()
+    return render(request,'blog/gm.html', {'campaigns':campaigns})
+
+def gm_detail(request, pk):
+    campaign = Campaign.objects.get(pk=pk)
+    players = campaign.players
+    data = {'campaign':campaign, 'players':players}
+    return render(request, 'blog/gm_detail.html',data)
 
 #Character related class based views
 class DeleteCharacter(DeleteView):

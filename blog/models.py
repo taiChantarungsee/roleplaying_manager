@@ -32,6 +32,31 @@ class Comment (models.Model):
     def __str__(self):
 	return self.title
 
+class Player(models.Model):
+
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    campaigns = models.ManyToManyField('Campaign', blank=True)
+
+    def __str__(self):
+        return self.first_name
+
+class Campaign(models.Model):
+    SYSTEM_CHOICES = (
+        ('DND', 'dnd'),
+        ('FATE', 'fate'),
+        ('SAVAGE_WORLDS', 'savage worlds'),
+        ('BURNING_WHEEL', 'Burning Wheel'),
+    )
+
+    name = models.CharField(max_length=50)
+    system = models.CharField(max_length=15,choices=SYSTEM_CHOICES,default='dnd')
+    gm_name = models.CharField(max_length=20)
+    players = models.ManyToManyField('Player')
+
+    def __str__(self):
+        return self.name
+
 class CharacterBase(models.Model):
     RACE_CHOICES = (
         ('HUMAN', 'human'),
@@ -68,4 +93,3 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.question_text
-

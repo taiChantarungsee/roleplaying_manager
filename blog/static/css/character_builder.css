@@ -2,3 +2,7 @@
 .table-borderless th {
     border: 0;
 }
+
+div.hidden {
+	display:none;
+}

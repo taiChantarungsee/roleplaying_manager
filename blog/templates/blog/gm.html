@@ -3,10 +3,11 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#campaign").click(function(){
-			$("#campaign-list").fadeIn();
-			$("#campaign").fadeOut();
+			$("#campaign_list").fadeIn("300");
+			$("#campaign").fadeOut("300", function() { 
+				$(this).remove();
+			});
 		});
-		$("")
 	})
 </script>
 
@@ -17,7 +18,7 @@
 	<div class="container">
 			<div class="row">
 				<div class="col-sm-8">
-	<table id="campaign-list" class="table table-borderless" data-toggle="table" data-classes="table" data-height="200" style="display:none;">
+	<table id="campaign_list" class="table table-borderless" data-toggle="table" data-classes="table" data-height="200" style="display:none;">
 		<thead>
 			<tr>
 				<th>Name</th>
@@ -25,9 +26,11 @@
 			</tr>
 		</thead>
 		<tbody>
+		{% for campaign in campaigns %}
 			<tr>
-				<td>Example</td>
+				<td><a href="{% url 'gm_detail' pk=campaign.pk %}">{{campaign.name}}</a></td>
 			</tr>
+		{% endfor %}
 		</tbody>
 	</table>
 </div>
