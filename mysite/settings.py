@@ -17,6 +17,7 @@ ALLOWED_HOSTS = ['roleplaying-character-manager.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'multiselectfield',
     'django.contrib.admin',
     'django.contrib.auth',  
     'django.contrib.contenttypes',
@@ -24,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+
 ]
 
 MIDDLEWARE_CLASSES = [

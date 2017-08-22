@@ -2,6 +2,7 @@ dj-static==0.0.6
 dj-database-url==0.4.2
 Django==1.8.15
 django-toolbelt==0.0.1
+django-select-multiple-field==0.4.2
 gunicorn==19.7.1
 psycopg2==2.6
 pytz==2016.4

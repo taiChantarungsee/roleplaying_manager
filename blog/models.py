@@ -3,6 +3,14 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 
+RACE_CHOICES = (
+        ('HUMAN', 'human'),
+        ('ELF', 'elf'),
+        ('DWARF', 'dwarf'),
+        ('ORC', 'orc'),
+    )
+
+
 class Post(models.Model):
     author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
@@ -56,6 +64,7 @@ class Campaign(models.Model):
     system = models.CharField(max_length=15,choices=SYSTEM_CHOICES,default='dnd')
     gm_name = models.CharField(max_length=20)
     players = models.ManyToManyField('Player')
+    #race_choices = models.MultiSelectField(max_length=3,choices=RACE_CHOICES)
 
     def __str__(self):
         return self.name
@@ -76,12 +85,6 @@ class Campaign(models.Model):
 
 
 class CharacterBase(models.Model):
-    RACE_CHOICES = (
-        ('HUMAN', 'human'),
-        ('ELF', 'elf'),
-        ('DWARF', 'dwarf'),
-        ('ORC', 'orc'),
-    )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     first_name = models.CharField(max_length=50)

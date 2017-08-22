@@ -6,3 +6,11 @@
 div.hidden {
 	display:none;
 }
+
+.navbar {
+	background:#f0f1f4;
+}
+
+.navbar-nav {
+	background:#f0f1f4;
+}
