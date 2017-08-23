@@ -1,0 +1,28 @@
+{% extends "blog/character_base.html" %}
+{% block content %}
+	<div style="text-align:center;">
+	<h1> Welcome to the Campaign list page</h1>
+	Select a campaign below to create or manage your characters for it.
+	</div>
+	<div class="container">
+			<div class="row">
+				<div class="col-sm-8">
+				<table id="campaign_list" class="table table-borderless" data-toggle="table" data-classes="table" data-height="300">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Other things to put here</th>
+						</tr>
+					</thead>
+				<tbody>
+				{% for campaign in campaigns %}
+				<tr>
+					<td><a href="{% url 'campaign_detail' pk=campaign.pk %}">{{campaign.name}}</a></td>
+				</tr>
+				{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
