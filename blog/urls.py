@@ -17,5 +17,9 @@ urlpatterns = [ # using the template {{ url 'url_name'}} we can refer to the URL
 
     #URLs for GM mode
     url(r'^GM/$', game_master, name='gm'),
-    url(r'^GM/(?P<pk>\d+)$', gm_detail, name='gm_detail')
+    url(r'^GM/(?P<pk>\d+)/$', gm_detail, name='gm_detail'),
+
+    #Campaign related URLs
+    url(r'campaigns/$', campaign_list, name='campaign_list'),
+    url(r'campaigns/(?P<pk>\d+)/$', campaign_detail, name='campaign_detail'),
 ]

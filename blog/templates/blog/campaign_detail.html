@@ -1,11 +1,90 @@
 {% extends "blog/character_base.html" %}
 {% block content %}
-	<script type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#new_character").click(function(){
+				$("#new_character").fadeOut("100");
+				$("#choose_character").fadeOut("100");
+				$("#text").fadeOut("100");
+				$("#create_form").fadeIn();
+			});
+			$("#remove_form").click(function(){
+				$("#create_form").fadeOut();
+				$("#new_character").fadeIn("100");
+				$("#text").fadeIn("100");
+				$("#choose_character").fadeIn("100");
+			});
+			$("#choose_character").click(function(){
+				$("#new_character").fadeOut("100");
+				$("#choose_character").fadeOut("100");
+				$("#text").fadeOut("100");
+				$("#character_table").fadeIn("100");
+			});
+			$("#table_remove").click(function(){
+				$("#character_table").fadeOut("100");
+				$("#new_character").fadeIn("100");
+				$("#choose_character").fadeIn("100");
+				$("#text").fadeIn("100");
+			});
+		});
 	</script>
+
 	<div style="text-align:center;">
-	<h2> Welcome to the campaign page for: {{campaign.name}}</h2>
-	<button class="btn btn-info" id="new_character"> Create a new character</button>
-	<br>or<br>
-	<button class="btn btn-info" id="new_character"> Choose from your previous characters</button>
+		<h2>PAGE STILL UNDER CONSTRUCTION</h2>
+		<h2> Welcome to the campaign page for: {{campaign.name}}</h2>
+		<button class="btn btn-info" id="new_character"> Create a new character</button>
+		<p id="text">or<p>
+		<button class="btn btn-info" id="choose_character"> Choose from your previous characters</button>
+
+		<div id="create_form" style="display:none;">
+		<div class="container">
+  			<h2>New Character <button type="button" id="remove_form" class="btn btn-default"> <i class="glyphicon glyphicon-remove"></i></h2>
+  			<form action="" name="character-form" method="post">{% csrf_token %}
+
+    			{{form.as_p}}
+
+    			<button type="submit" class="save btn btn-info">Submit</button>
+  			</form>
+  		</div>
+		</div>
+	</div>
+	<div class="container" id="character_table" style="display:none;">
+		<div id="toolbar" class="btn-group">
+			<button type="button" id="table_remove" class="btn btn-default">
+				<i class="glyphicon glyphicon-remove"></i>
+			</button>
+		</div>
+		<table data-toggle="table" data-classes="table table-hover table -condensed" data-striped="true" data-card-view="true" data-click-to-select="true" data-search="true" data-show-refresh="true" data-show-toggle="true" data-toolbar="#toolbar" data-query-params="queryParams"
+       	data-pagination="true" data-height="500" data-mobile-responsive="true">
+    		<thead>
+       			<tr>
+       				<th data-field="state" data-checkbox="true"></th>
+       				<th class="col-sm-1" 
+       				data-formatter="runningFormatter"
+       				data-switchable="false">Number</th>
+          		    <th class="col-sm-4" data-sortable="true"
+          		    data-switchable="false">First Name</th>
+          		    <th class="col-sm-3" data-sortable="true">Last Name</th>
+          		    <th class="col-sm-1" data-sortable="true">Age</th>
+          		    <th class="col-sm-1" data-sortable="true">Race</th>
+          		    <th>Action</th>
+       			</tr>
+    		</thead>
+    		<tbody>
+    		{% for character in characters %}
+       			<tr>
+       				<td></td>
+       				<td></td>
+          			<td><a href="{% url 'character_detail' pk=character.pk %}"
+          			data-toggle="tooltip" title="Click to view character details andedit">{{character.first_name}}</a></td>
+           			<td>{{character.last_name}}</td>
+           			<td>{{character.age}}</td>
+           			<td>{{character.race}}</td>
+           			<td><a href= "{% url 'character_delete' pk=character.pk %}">
+	       			<i class="glyphicon glyphicon-remove"></i></a></td>
+        		</tr>
+        		{% endfor %}
+    		</tbody>
+		</table>
 	</div>
 {% endblock %}

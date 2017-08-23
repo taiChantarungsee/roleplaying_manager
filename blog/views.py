@@ -124,6 +124,26 @@ def gm_detail(request, pk):
     data = {'campaign':campaign, 'players':players}
     return render(request, 'blog/gm_detail.html',data)
 
+def campaign_list(request):
+    campaigns = Campaign.objects.all()
+    return render(request, 'blog/campaigns.html', {'campaigns':campaigns})
+
+def campaign_detail(request, pk):
+    campaign = Campaign.objects.get(pk=pk)
+    characters = CharacterBase.objects.all()
+    if request.method == 'POST':
+        form = CharacterForm(request.POST)
+        if form.is_valid():
+            new = form.save(commit=False)
+            #new.user = request.user
+            #new = form.save()
+            return render(request, 'blog/campaign_detail.html', 
+            {'campaign':campaign, 'form':form, 'characters':characters})
+    else:
+        new_character = CharacterForm()
+    return  render(request, 'blog/campaign_detail.html', {'campaign':campaign,
+    'form':new_character, 'characters':characters})
+
 #Character related class based views
 class DeleteCharacter(DeleteView):
     model = CharacterBase
