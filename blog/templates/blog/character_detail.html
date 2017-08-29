@@ -30,6 +30,16 @@
    			</tr>
    		</tbody>
 	</table>
+  <div id="create-form">
+    <div class="container">
+        <form action="" name="character-form" method="post">{% csrf_token %}
+
+          {{form.as_p}}
+
+          <button type="submit" class="save btn btn-info">Submit</button>
+        </form>
+      </div>
+  </div>
 </div>
 </div>
 </div>

@@ -112,7 +112,15 @@ def char_builder_list(request):
 
 def character_detail(request, pk):
     character = CharacterBase.objects.get(pk=pk)
-    return render(request, 'blog/character_detail.html', {'character':character})
+    if request.method == "POST":
+        form = CharacterForm
+        form.save()
+        render(request, 'blog/character_detail.html', {'character':character,
+              'form':form})
+    else:
+        form = CharacterForm
+    return render(request, 'blog/character_detail.html', {'character':character,
+                 'form':form})
 
 def game_master(request):
     campaigns = Campaign.objects.all()

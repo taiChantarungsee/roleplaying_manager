@@ -11,6 +11,20 @@ RACE_CHOICES = (
     )
 
 
+class Races(models.Model):
+
+    human = models.BooleanField(default=False)
+    elf = models.BooleanField(default=False)
+    dwarf = models.BooleanField(default=False)
+    orc = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     author = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
@@ -52,7 +66,7 @@ class Player(models.Model):
         return self.first_name
 
 
-class Campaign(models.Model):
+class Campaign(Races):
     SYSTEM_CHOICES = (
         ('DND', 'dnd'),
         ('FATE', 'fate'),
@@ -64,29 +78,17 @@ class Campaign(models.Model):
     system = models.CharField(max_length=15,choices=SYSTEM_CHOICES,default='dnd')
     gm_name = models.CharField(max_length=20)
     players = models.ManyToManyField('Player')
-    #race_choices = models.MultiSelectField(max_length=3,choices=RACE_CHOICES)
+    min_level = models.IntegerField(null=True)
+    allowed_supplements = models.TextField(max_length=50, null=True) #better off as a one to many?
 
     def __str__(self):
         return self.name
 
 
-#class Races(models.Model):
-#     RACE_CHOICES = (
-#        ('HUMAN', 'human'),
-#        ('ELF', 'elf'),
-#        ('DWARF', 'dwarf'),
-#        ('ORC', 'orc'),
-#    )
-#
-#    name = models.CharField(max_length=5, choices=RACE_CHOICES,default)
-#
-#    def __str__(self):
-#        return self.name
-
-
 class CharacterBase(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    campaigns = models.ManyToManyField('Campaign', blank=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     age = models.IntegerField()
