@@ -113,12 +113,13 @@ def char_builder_list(request):
 def character_detail(request, pk):
     character = CharacterBase.objects.get(pk=pk)
     if request.method == "POST":
-        form = CharacterForm
+        form = CharacterForm(request.POST, instance = character)
+        print(form)
         form.save()
         render(request, 'blog/character_detail.html', {'character':character,
               'form':form})
     else:
-        form = CharacterForm
+        form = CharacterForm(initial={'first_name':character.first_name})
     return render(request, 'blog/character_detail.html', {'character':character,
                  'form':form})
 

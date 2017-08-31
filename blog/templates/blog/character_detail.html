@@ -6,30 +6,6 @@
 <div class="row">
 <div class="col col-sm-8">
 	<h2>Character Details</h2>
-	<table data-toggle="table" data-toggle="table" data-classes="table table-hover table -condensed" data-striped="true" data-click-to-select="true" data-show-toggle="true" data-show-columns="true" data-show-toggle="true" data-mobile-responsive="true">
-   		<thead>
-    		<tr>
-       			<th>First Name</th>
-       			<th>Last Name</th>
-       			<th>Age</th>
-       			<th>Race</th>
-       			<th>Likes</th>
-       			<th>Hometown</th>
-       			<th>Relationships</th>
-    		</tr>
-   		</thead>
-   		<tbody>
-    		<tr>
-        		<td>{{character.first_name}}</a></td>
-      			<td>{{character.last_name}}</td>
-      			<td>{{character.age}}</td>
-      			<td>{{character.race}}</td>
-      			<td>{{character.likes}}</td>
-      			<td>{{character.hometown}}</td>
-      			<td>{{character.relationships}}</td>
-   			</tr>
-   		</tbody>
-	</table>
   <div id="create-form">
     <div class="container">
         <form action="" name="character-form" method="post">{% csrf_token %}

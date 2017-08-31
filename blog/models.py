@@ -88,14 +88,15 @@ class Campaign(Races):
 class CharacterBase(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    campaigns = models.ManyToManyField('Campaign', blank=True)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    age = models.IntegerField()
-    race = models.CharField(max_length=5,choices=RACE_CHOICES,default='human')
-    hometown = models.CharField(max_length=50)
-    likes = models.CharField(max_length=50)
-    relationships = models.CharField(max_length=50)
+    campaigns = models.ManyToManyField('Campaign', blank=True, null=True)
+    first_name = models.CharField(max_length=50, null=True, blank=True)
+    last_name = models.CharField(max_length=50, null=True, blank=True )
+    age = models.IntegerField(null=True, blank=True )
+    race = models.CharField(max_length=5,choices=RACE_CHOICES,default='human'
+        ,null=True, blank=True )
+    hometown = models.CharField(max_length=50, null=True, blank=True )
+    likes = models.CharField(max_length=50, null=True, blank=True )
+    relationships = models.CharField(max_length=50, null=True, blank=True )
 
     def __str__(self):
         return self.first_name
