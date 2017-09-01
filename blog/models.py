@@ -96,7 +96,7 @@ class CharacterBase(models.Model):
         ,null=True, blank=True )
     hometown = models.CharField(max_length=50, null=True, blank=True )
     likes = models.CharField(max_length=50, null=True, blank=True )
-    relationships = models.CharField(max_length=50, null=True, blank=True )
+    relationships = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
         return self.first_name

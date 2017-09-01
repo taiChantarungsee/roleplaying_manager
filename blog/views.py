@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils import timezone
 
 from .models import Post, Choice, Question, CharacterBase, Campaign
-from .forms import PostForm, CharacterForm
+from .forms import PostForm, CharacterForm, CampaignForm
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -112,10 +112,8 @@ def char_builder_list(request):
 
 def character_detail(request, pk):
     character = CharacterBase.objects.get(pk=pk)
-    if request.method == "POST":
-        form = CharacterForm(request.POST, instance = character)
-        print(form)
-        form.save()
+    if request.method == 'POST':
+        form = CharacterForm(request.POST, instance = character) #no save function?
         render(request, 'blog/character_detail.html', {'character':character,
               'form':form})
     else:
@@ -130,7 +128,13 @@ def game_master(request):
 def gm_detail(request, pk):
     campaign = Campaign.objects.get(pk=pk)
     players = campaign.players
-    data = {'campaign':campaign, 'players':players}
+    if request.method == 'POST':
+        form = CampaignForm(request.POST, instance = campaign)
+        render(request, 'blog/gm_detail.html', {'campaign':campaign,
+              'form':form})
+    else:
+        form = CampaignForm(initial={'system':campaign.system})
+    data = {'campaign':campaign, 'players':players, 'form':form}
     return render(request, 'blog/gm_detail.html',data)
 
 def campaign_list(request):

@@ -7,7 +7,7 @@ $(function(){
 
 </script>
 <div style="text-align:center;">
-	PAGE STILL UNDER CONSTRUCTION. 
+	PAGE STILL UNDER CONSTRUCTION. Customise your campaign here.
 	{{campaign}}
 	{{players.all}}
 	<div class="container">
@@ -23,6 +23,16 @@ $(function(){
 				</dl>
 			</div>
 		</div>
+	</div>
+	<div id="create_form">
+		<div class="container">
+  			<form action="" name="campaign-form" method="post">{% csrf_token %}
+
+    			{{form.as_p}}
+
+    			<button type="submit" class="save btn btn-info">Submit</button>
+  			</form>
+  		</div>
 	</div>
 </div>
 {% endblock %}

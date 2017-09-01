@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Post, Comment, CharacterBase
+from .models import Post, Comment, CharacterBase, Campaign
 
 class PostForm(forms.ModelForm):
 
@@ -25,6 +25,14 @@ class CharacterForm(forms.ModelForm):
 		exclude = ['user']
 		fields = ('first_name','last_name','age','race','hometown','likes',
 			'relationships')
+
+
+class CampaignForm(forms.ModelForm):
+
+	class Meta:
+
+		model = Campaign
+		fields = ('name','system','gm_name','players','min_level','allowed_supplements')
 
 """ The html for the form should have something like this:
 
