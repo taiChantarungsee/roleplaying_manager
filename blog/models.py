@@ -66,6 +66,13 @@ class Player(models.Model):
         return self.first_name
 
 
+class System(models.Model):
+
+    name = model.CharField(max_length=50)
+    #Will have to process the data by splitting the strings are putting them into a data type
+    classes = models.TextField(max_length=50, blank=True, null=True)_
+
+
 class Campaign(Races):
     SYSTEM_CHOICES = (
         ('DND', 'dnd'),
@@ -74,12 +81,14 @@ class Campaign(Races):
         ('BURNING_WHEEL', 'Burning Wheel'),
     )
 
-    name = models.CharField(max_length=50)
-    system = models.CharField(max_length=15,choices=SYSTEM_CHOICES,default='dnd')
-    gm_name = models.CharField(max_length=20)
-    players = models.ManyToManyField('Player')
-    min_level = models.IntegerField(null=True)
-    allowed_supplements = models.TextField(max_length=50, null=True) #better off as a one to many?
+    name = models.CharField(max_length=50, blank=True, null=True)
+    system = models.CharField(max_length=15,choices=SYSTEM_CHOICES,default='dnd',
+     blank=True, null=True)
+    gm_name = models.CharField(max_length=20, blank=True, null=True)
+    players = models.ManyToManyField('Player', blank=True, null=True)
+    min_level = models.IntegerField(blank=True, null=True)
+    allowed_supplements = models.TextField(max_length=50, blank=True, null=True) #better off as a one to many?
+    allowed_classes = 
 
     def __str__(self):
         return self.name
@@ -90,8 +99,9 @@ class CharacterBase(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     campaigns = models.ManyToManyField('Campaign', blank=True, null=True)
     first_name = models.CharField(max_length=50, null=True, blank=True)
-    last_name = models.CharField(max_length=50, null=True, blank=True )
-    age = models.IntegerField(null=True, blank=True )
+    last_name = models.CharField(max_length=50, null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
+    _class = models. 
     race = models.CharField(max_length=5,choices=RACE_CHOICES,default='human'
         ,null=True, blank=True )
     hometown = models.CharField(max_length=50, null=True, blank=True )

@@ -27,10 +27,29 @@ $(function(){
 	<div id="create_form">
 		<div class="container">
   			<form action="" name="campaign-form" method="post">{% csrf_token %}
-
-    			{{form.as_p}}
-
+  			<table>
+  			<tr>
+    			{{form.non_field_errors}}
+    			<td>{{form.name.errors}}
+    			<label for="{{form.name.id_for_label}}">Name:</label>
+    			{{form.name}}</td>
+    			<td>{{form.system.errors}}
+    			<label for="{{form.system.id_for_label}}">System:</label>
+    			{{form.system}}</td>
+    			<td>{{form.players.errors}}
+    			<label for="{{form.players.id_for_label}}">Players:</label>
+    			{{form.players}}</td>
+    		</tr>
+    		<tr>
+    			<td>{{form.min_level.errors}}
+    			<label for="{{form.min_level.id_for_label}}">Minimum Level:</label>
+    			{{form.min_level}}</td>
+    			<td>{{form.allowed_supplements.errors}}
+    			<label for="{{form.allowed_supplements.id_for_label}}">Allowed Supplements:</label>
+    			{{form.allowed_supplements}}</td>
+    		</tr>
     			<button type="submit" class="save btn btn-info">Submit</button>
+    		</table>
   			</form>
   		</div>
 	</div>

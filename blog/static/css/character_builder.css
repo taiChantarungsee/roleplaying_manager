@@ -3,6 +3,10 @@
     border: 0;
 }
 
+.class_1 {
+	color:red;
+}
+
 div.hidden {
 	display:none;
 }

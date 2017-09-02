@@ -17,6 +17,7 @@ ALLOWED_HOSTS = ['roleplaying-character-manager.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'widget_tweaks',
     'multiselectfield',
     'django.contrib.admin',
     'django.contrib.auth',  

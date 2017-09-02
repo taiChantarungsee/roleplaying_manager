@@ -33,6 +33,9 @@ class CampaignForm(forms.ModelForm):
 
 		model = Campaign
 		fields = ('name','system','gm_name','players','min_level','allowed_supplements')
+		widgets = {
+			'allowed_supplements': forms.Textarea(attrs={'rows':2, 'cols':12}),
+		}
 
 """ The html for the form should have something like this:
 

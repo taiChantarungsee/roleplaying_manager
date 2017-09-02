@@ -130,6 +130,7 @@ def gm_detail(request, pk):
     players = campaign.players
     if request.method == 'POST':
         form = CampaignForm(request.POST, instance = campaign)
+        print(form)
         render(request, 'blog/gm_detail.html', {'campaign':campaign,
               'form':form})
     else:
