@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -23,6 +25,24 @@ class Races(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class dnd_classes(models.Model):
+
+    classes_id = models.AutoField(primary_key=True)
+    fighter = models.BooleanField(default=False)
+    rouge = models.BooleanField(default=False)
+    cleric = models.BooleanField(default=False)
+    wizard = models.BooleanField(default=False)
+    barbarian = models.BooleanField(default=False)
+    bard = models.BooleanField(default=False)
+    druid = models.BooleanField(default=False)
+    monk = models.BooleanField(default=False)
+    sorceror = models.BooleanField(default=False)
+    warlock = models.BooleanField(default=False)
+
+    class meta:
+        abstract = True
 
 
 class Post(models.Model):
@@ -56,6 +76,24 @@ class Comment (models.Model):
 	return self.title
 
 
+class CharacterBase(models.Model):
+
+    character_base_id = models.AutoField(primary_key=True,default=uuid.uuid4)
+    #user = models.OneToOneField(User, on_delete=models.CASCADE)
+    campaigns = models.ManyToManyField('Campaign', blank=True)
+    first_name = models.CharField(max_length=50, null=True, blank=True)
+    last_name = models.CharField(max_length=50, null=True, blank=True)
+    age = models.IntegerField(null=True, blank=True)
+    race = models.CharField(max_length=5,choices=RACE_CHOICES,default='human'
+        ,null=True, blank=True )
+    hometown = models.CharField(max_length=50, null=True, blank=True )
+    likes = models.CharField(max_length=50, null=True, blank=True )
+    relationships = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return self.first_name
+
+
 class Player(models.Model):
 
     first_name = models.CharField(max_length=20)
@@ -64,13 +102,7 @@ class Player(models.Model):
 
     def __str__(self):
         return self.first_name
-
-
-class System(models.Model):
-
-    name = model.CharField(max_length=50)
-    #Will have to process the data by splitting the strings are putting them into a data type
-    classes = models.TextField(max_length=50, blank=True, null=True)_
+#Will have to process the data by splitting the strings are putting them into a data type
 
 
 class Campaign(Races):
@@ -85,31 +117,20 @@ class Campaign(Races):
     system = models.CharField(max_length=15,choices=SYSTEM_CHOICES,default='dnd',
      blank=True, null=True)
     gm_name = models.CharField(max_length=20, blank=True, null=True)
-    players = models.ManyToManyField('Player', blank=True, null=True)
+    players = models.ManyToManyField('Player', blank=True)
     min_level = models.IntegerField(blank=True, null=True)
     allowed_supplements = models.TextField(max_length=50, blank=True, null=True) #better off as a one to many?
-    allowed_classes = 
 
     def __str__(self):
         return self.name
 
 
-class CharacterBase(models.Model):
+class dnd_character(dnd_classes, CharacterBase):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    campaigns = models.ManyToManyField('Campaign', blank=True, null=True)
-    first_name = models.CharField(max_length=50, null=True, blank=True)
-    last_name = models.CharField(max_length=50, null=True, blank=True)
-    age = models.IntegerField(null=True, blank=True)
-    _class = models. 
-    race = models.CharField(max_length=5,choices=RACE_CHOICES,default='human'
-        ,null=True, blank=True )
-    hometown = models.CharField(max_length=50, null=True, blank=True )
-    likes = models.CharField(max_length=50, null=True, blank=True )
-    relationships = models.CharField(max_length=50, null=True, blank=True)
+    hp = models.IntegerField(blank=True, null=True)
+    ac = models.IntegerField(blank=True, null=True)
+    movement_speed = models.IntegerField(blank=True, null=True)
 
-    def __str__(self):
-        return self.first_name
 
 @python_2_unicode_compatible
 class Question(models.Model):
