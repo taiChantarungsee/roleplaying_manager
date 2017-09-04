@@ -14,6 +14,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['roleplaying-character-manager.herokuapp.com']
 
+#Media definition
+
+MEDIA_URL = '/static/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,6 +60,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },

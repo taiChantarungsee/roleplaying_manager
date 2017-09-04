@@ -129,6 +129,9 @@ def gm_detail(request, pk):
     campaign = Campaign.objects.get(pk=pk)
     players = campaign.players
     if request.method == 'POST':
+        #maybe just grab the fields that are present in the POST object like:
+        #m.model_pic = form.cleaned_data['image'] and save them each in a loop. This may
+        #not work because of the way the save() works. Try looking for that add on first.
         form = CampaignForm(request.POST, instance = campaign)
         print(form)
         render(request, 'blog/gm_detail.html', {'campaign':campaign,

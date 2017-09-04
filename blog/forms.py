@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Post, Comment, CharacterBase, Campaign
+from .models import Post, Comment, CharacterBase, Campaign, DndCharacter
 
 class PostForm(forms.ModelForm):
 
@@ -17,14 +17,24 @@ class CommentForm(forms.ModelForm):
 		model = Comment
 		fields = ('title', 'text', 'author')
 
+
 class CharacterForm(forms.ModelForm):
 
 	class Meta:
 
 		model = CharacterBase
 		exclude = ['user']
-		fields = ('first_name','last_name','age','race','hometown','likes',
+		fields = ('first_name','last_name','image','age','race','hometown','likes',
 			'relationships')
+
+
+class DndCharacterForm(forms.ModelForm):
+
+	class Meta:
+
+		model = DndCharacter
+		fields = ('first_name','last_name','age','race','hometown','likes',
+			'relationships', 'hp', 'ac', 'movement_speed')
 
 
 class CampaignForm(forms.ModelForm):

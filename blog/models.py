@@ -78,8 +78,9 @@ class Comment (models.Model):
 
 class CharacterBase(models.Model):
 
-    character_base_id = models.AutoField(primary_key=True,default=uuid.uuid4)
-    #user = models.OneToOneField(User, on_delete=models.CASCADE)
+    character_base_id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='static/images')
     campaigns = models.ManyToManyField('Campaign', blank=True)
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
@@ -125,7 +126,7 @@ class Campaign(Races):
         return self.name
 
 
-class dnd_character(dnd_classes, CharacterBase):
+class DndCharacter(dnd_classes, CharacterBase):
 
     hp = models.IntegerField(blank=True, null=True)
     ac = models.IntegerField(blank=True, null=True)
