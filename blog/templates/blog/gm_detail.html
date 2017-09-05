@@ -3,6 +3,43 @@
 <script>
 $(function(){
 	$("#firstbox").hide(0).delay(0).fadeIn(1000);
+
+	document.getElementById('form_field').onclick = function(event) {
+		var span, input, text;
+
+		//Get the event
+		event = event || window.event;
+
+		span = event.target || event.srcElement;
+
+    	// If it's a span...
+    	if (span && span.tagName.toUpperCase() === "SPAN") {
+    	  // Hide it
+    	  span.style.display = "none";
+	
+    	  // Get its text
+    	  text = span.innerHTML;
+	
+    	  // Create an input
+    	  input = document.createElement("input");
+    	  input.type = "text";
+    	  input.size = Math.max(text.length / 4 * 3, 4);
+    	  span.parentNode.insertBefore(input, span);
+	
+    	  // Focus it, hook blur to undo
+    	  input.focus();
+    	  input.onblur = function() {
+    	    // Remove the input
+    	    span.parentNode.removeChild(input);
+	
+    	    // Update the span
+    	    span.innerHTML = input.value;
+	
+    	    // Show the span again
+    	    span.style.display = "";
+    	  };
+		}
+	}
 });
 
 </script>
@@ -39,6 +76,7 @@ $(function(){
     			<td>{{form.players.errors}}
     			<label for="{{form.players.id_for_label}}">Players:</label>
     			{{form.players}}</td>
+
     		</tr>
     		<tr>
     			<td>{{form.min_level.errors}}
