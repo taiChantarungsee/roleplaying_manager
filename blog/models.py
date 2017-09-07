@@ -95,6 +95,13 @@ class CharacterBase(models.Model):
         return self.first_name
 
 
+class DndCharacter(dnd_classes, CharacterBase):
+
+    hp = models.IntegerField(blank=True, null=True)
+    ac = models.IntegerField(blank=True, null=True)
+    movement_speed = models.IntegerField(blank=True, null=True)
+
+
 class Player(models.Model):
 
     first_name = models.CharField(max_length=20)
@@ -120,17 +127,19 @@ class Campaign(Races):
     gm_name = models.CharField(max_length=20, blank=True, null=True)
     players = models.ManyToManyField('Player', blank=True)
     min_level = models.IntegerField(blank=True, null=True)
-    allowed_supplements = models.TextField(max_length=50, blank=True, null=True) #better off as a one to many?
+    allowed_supplements = models.ManyToManyField('Supplement', blank=True) 
+    #better off as a one to many?
 
     def __str__(self):
         return self.name
 
 
-class DndCharacter(dnd_classes, CharacterBase):
+class Supplement(models.Model):
 
-    hp = models.IntegerField(blank=True, null=True)
-    ac = models.IntegerField(blank=True, null=True)
-    movement_speed = models.IntegerField(blank=True, null=True)
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
 
 
 @python_2_unicode_compatible
