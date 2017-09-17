@@ -6,17 +6,15 @@ from django.views.generic.edit import CreateView, DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils import timezone
+from django.http import JsonResponse
 
 from .models import Post, Choice, Question, CharacterBase, Campaign
 from .forms import PostForm, CharacterForm, CampaignForm
 
-def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'blog/post_list.html', {'posts': posts})
-
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})
+#JSON api related views
+def return_campaings(request):
+    campaigns = Campaign.objects.all()
+    return JsonResponse(campaigns)
 
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -45,39 +43,7 @@ def post_new(request):
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
 
-class IndexView(ListView): # Will need this if we decide to use the index URL or we can modify, otherwise comment out 
-    template_name = 'polls/index.html'
-    context_object_name = 'latest_question_list'
-
-    def get_queryset(self):
-        """
-        Return the last five published questions (not including those set to be
-        published in the future).
-        """
-        return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
-
-def vote(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    try:
-        selected_choice = question.choice_set.get(pk=request.POST['choice']) # Only using POST means we can control how the data is accessed, and it will give an error if 'choice' is not in the post data
-    except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form. This will redirect to results.
-        return render(request, 'polls/detail.html', {
-            'question': question,
-            'error_message': "You didn't select a choice.",
-        })
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-        return HttpResponseRedirect(reverse('results', args=(question.id,))) # was 'polls:results'
-
-def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    output = ', '.join([q.question_text for q in latest_question_list])
-    return HttpResponse(output) #Need to tell it what template to render with return render(request, 'polls/index.html', context)
+#return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
 # Converted to Django's generic views which completely abstracts the logic, since it's such a common operation.
 class DetailView(DetailView):
