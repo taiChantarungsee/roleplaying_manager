@@ -7,7 +7,6 @@ Looking at blog/models.py or blog/view.py would get an overview of my code. See 
 Use:
 ```
 ./manage.py migrate 
-
 ```
 
 On a Linux environment as usual, then:
