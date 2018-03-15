@@ -12,6 +12,6 @@ Use:
 On a Linux environment as usual, then:
 
 ```
-./managy.py runserver
+./manage.py runserver
 ```
 And off you go! Static files are currently not in use, so no need for ```collectstatic``` just yet.
