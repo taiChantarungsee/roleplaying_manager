@@ -45,7 +45,7 @@ def post_new(request):
 
 #return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
-# Converted to Django's generic views which completely abstracts the logic, since it's such a common operation.
+# Converted to Django's generic views which completely abstracts the logic of this common operation
 class DetailView(DetailView):
     model = Question
     template_name = 'polls/detail.html'
