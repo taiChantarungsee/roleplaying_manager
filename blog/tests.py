@@ -1,86 +1,86 @@
-from django.test import TestCase, Client
+from django.test import TestCase
+from django.test.client import Client
 
-from .forms import CharacterForm, DnDCharacterForm
+from .forms import CampaignForm
+from .models import Campaign
 
-class TestCases(TestCase):
+class Views_Tests(TestCase):
 
 	#Test fixtures
-	def user_tests(self):
+	def test_urls(self):
 		c = Client()
-		res = C.get("/dnd/")
-		self.assertEquals(res.status_code, 200) # and so on.
+		res = c.get("/character/")
+		self.assertEquals(res.status_code, 200)
+		self.assertIn(b"Click here to log in", res.content)
 
-#Keep the form tests
+		res = c.get("/new_user/")
+		self.assertEquals(res.status_code, 200)
+
+		res = c.get("/login/")
+		self.assertEquals(res.status_code, 200)
+
+		res = c.get("/GM/")
+		self.assertEquals(res.status_code, 200)
+
+		res = c.get("/INVALID/")
+		self.assertEquals(res.status_code, 404)
+
 class Form_Tests(TestCase):
 
 	def test_form(self):
-		Form = CharacterForm()
+		Form = CampaignForm()
 
 		# Check some fields are there, as_p() renders in html
-		self.assertIn("first_name", Form.as_p())
-		self.assertIn("age", Form.as_p())
+		self.assertIn("name", Form.as_p())
+		self.assertIn("system", Form.as_p())
 
-		#Add invalid data next? Let users create supplements...
-		Form = DndCharacterForm(data= {"first_name": "test_name",
-							   "last_name": "test",
-							   "age": "test",
-							   "race": "test",
-							   "hometown": "test",
-							   "likes": "test",
-							   "relationships": "test",
-							   "hp": "45",
-							   "ac": "16",
-							   "movement_speed": 43
+		#Let users create supplements...
+		Form = CampaignForm(data= {
+							   "name": "test_name",
+							   "system": "DND",
+							   "gm_name": "test",
+							   "min_level": 2,
 								})
-
+	
 		self.assertTrue(Form.is_valid())
 		self.assertIn("name", Form.as_p()) 
 
 		# Now save the data, which will clean it, and test it
 		saved = Form.save()
 
-		self.assertEqual(saved.first_name, "test_name")
-		self.assertEqual(saved.movement_speed, 43)
+		self.assertEqual(saved.name, "test_name")
+		self.assertEqual(saved.min_level, 2)
 
 		#Now change the data in a field to an invalid data type, and check the error message
-		Form = MastForm(data= {"first_name": 1})
-
+		Form = CampaignForm(data= {
+							   "name": "test_name",
+							   "system": "DND",
+							   "gm_name": "test",
+							   "min_level": "ERROR",
+								})
 		# is_valid should return false if there are errors
 		self.assertFalse(Form.is_valid())
 
-		""" Since address1 and address2 are required fields they should return an error
-		self.assertTrue("address1" in Form.errors.keys())
-		self.assertTrue("address2" in Form.errors.keys())
-		self.assertEqual(Form.errors["address1"], ["This field is required."])
-		self.assertEqual(Form.errors["address2"], ["This field is required."])"""
-
-"""
-from django.core.management import call_command
-from django.test.client import Client
-from .models import CsvData
-from .forms import MastForm
 
 class Model_Tests(TestCase):
-	""" A series of model tests querying and saving data
+	#A series of model tests querying and saving data
 
-	fixtures = ["mast_app.json"]
+	def create_data(self):
+		return Campaign.objects.create(
+			name = "test_name",
+			system = "dnd" 
+			)
+
+	def test_string_representation(self):
+		data = self.create_data()
+		self.assertEqual(data.__str__(), "test_name")
+
+	def test_creation(self):
+		data = self.create_data()
+		self.assertTrue(isinstance(data, Campaign))
 
 	def test_query(self):
-		test = CsvData.objects.get(name="Beecroft Hill")
-		self.assertEquals(test.tenant_name, "Arqiva Services ltd")
-
-	def test_save(self):
-		test = CsvData.objects.create(
-				name="Test",
-				address1 = "Test",
-				address2 = "Test",
-				address3 = "Test",
-				address4 = "Test",
-				unit_name = "Test",
-				tenant_name = "Test",
-				lease_start_date = "02-03-1999",
-				lease_end_date = "04-03-2017",
-				lease_years = 4,
-				current_rent = 5,)
-		test = CsvData.objects.get(name="Test")
-		self.assertEquals(test.tenant_name, "Test")"""			
+		data = self.create_data()
+		data.save()
+		test = Campaign.objects.get(name="test_name")
+		self.assertEquals(test.system, "dnd")

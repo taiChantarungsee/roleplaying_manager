@@ -8,8 +8,8 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils import timezone
 from django.http import JsonResponse
 
-from .models import Post, Choice, Question, CharacterBase, Campaign
-from .forms import PostForm, CharacterForm, CampaignForm
+from .models import CharacterBase, Campaign
+from .forms import CharacterForm, CampaignForm
 
 #JSON api related views
 def return_campaings(request):
@@ -42,18 +42,6 @@ def post_new(request):
     else:
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
-
-#return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
-
-# Converted to Django's generic views which completely abstracts the logic of this common operation
-class DetailView(DetailView):
-    model = Question
-    template_name = 'polls/detail.html'
-
-
-class ResultsView(DetailView):
-    model = Question
-    template_name = 'polls/results.html'
 
 #Views for role playing character builder
 def char_builder_list(request):

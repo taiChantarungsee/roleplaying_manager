@@ -45,42 +45,11 @@ class dnd_classes(models.Model):
         abstract = True
 
 
-class Post(models.Model):
-    author = models.ForeignKey('auth.User')
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    created_date = models.DateTimeField(
-            default=timezone.now)
-    published_date = models.DateTimeField(
-            blank=True, null=True)
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
-
-    def __str__(self):
-        return self.title
-
-
-class Comment (models.Model):
-    author = models.CharField(max_length=50)
-    title = models.CharField(max_length=50)
-    text = models.TextField(help_text='Say something nice about Tai ;)')
-    published_date = models.DateTimeField(auto_now=True, blank=True, null=True)
-
-    def publish(self):
-	self.published_date = timezone.now()
-	self.save
-
-    def __str__(self):
-	return self.title
-
-
 class CharacterBase(models.Model):
 
     character_base_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='static/images')
+    image = models.ImageField(upload_to='static/images', null=True, blank=True)
     campaigns = models.ManyToManyField('Campaign', blank=True)
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)

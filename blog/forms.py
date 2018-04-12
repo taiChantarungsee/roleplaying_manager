@@ -1,15 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Comment, CharacterBase, Campaign, DndCharacter
-
-
-class CommentForm(forms.ModelForm):
-
-	class Meta:
-
-		model = Comment
-		fields = ('title', 'text', 'author')
+from .models import CharacterBase, Campaign, DndCharacter
 
 
 class CharacterForm(forms.ModelForm):

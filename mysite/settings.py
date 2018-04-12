@@ -23,7 +23,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 INSTALLED_APPS = [
     'widget_tweaks',
-    'multiselectfield',
     'django.contrib.admin',
     'django.contrib.auth',  
     'django.contrib.contenttypes',
@@ -31,7 +30,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-
 ]
 
 MIDDLEWARE_CLASSES = [
