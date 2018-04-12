@@ -7,3 +7,4 @@ django-widget-tweaks==1.4.2
 gunicorn==19.7.1
 psycopg2==2.6
 pytz==2016.4
+pillow==5.1.0
